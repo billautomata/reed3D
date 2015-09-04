@@ -2,5 +2,14 @@
   "name": "day10",
   "obj": "day_10_morning.obj",
   "mtl": "day_10_morning.mtl",
-  "date": "Fri Sep 04 2015 11:56:10 GMT-0700 (PDT)"
+  "date": "Fri Sep 04 2015 11:56:10 GMT-0700 (PDT)",
+  "camera_z": 250,
+  "scale": 15,
+  "rotate_x_multi": 0,
+  "rotate_y_multi": 1.1,
+  "rotate_z_multi": 0,
+  "camera_offset_x": 100,
+  "camera_offset_y": -150,
+  "camera_x_multi": 0.05,
+  "camera_y_multi": 0.05
 }

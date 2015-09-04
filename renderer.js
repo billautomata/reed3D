@@ -19,16 +19,17 @@ function render(opts) {
     document.body.appendChild(container);
 
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000);
-    camera.position.z = 250;
+    camera.position.z = opts.camera_z;
 
     // scene
 
     scene = new THREE.Scene();
 
-    var ambient = new THREE.AmbientLight(0x333);
-    // scene.add( ambient );
+    var ambient = new THREE.AmbientLight(0xffffff);
+    scene.add(ambient);
 
-    var directionalLight = new THREE.DirectionalLight(0xffffff);
+
+    var directionalLight = new THREE.DirectionalLight(parseInt(opts.directional_light_color));
     directionalLight.position.set(0, 0, 1).normalize();
     scene.add(directionalLight);
 
@@ -49,16 +50,44 @@ function render(opts) {
     var loader = new THREE.OBJMTLLoader();
     loader.load('models/' + opts.name + '/' + opts.obj, 'models/' + opts.name + '/' + opts.mtl, function (object) {
 
-      var scale = 25
-      obj = object
+
+      if (!opts.wireframe_mode) {
+        object.rotateY(Math.PI * opts.rotate_y_multi)
+        object.rotateX(Math.PI * opts.rotate_x_multi)
+        object.rotateZ(Math.PI * opts.rotate_z_multi)
+        object.scale.set(opts.scale, opts.scale, opts.scale);
+        scene.add(object);
+      } else {
+        // wireframe mode
+        object.traverse(function (element) {
+
+          if (element instanceof THREE.Mesh) {
+            var geo = element.geometry
+            var mat = element.material
+            var mesh = new THREE.Mesh(geo, mat)
+
+            mesh.traverse(function (e) {
+              if (e instanceof THREE.Mesh) {
+                e.material.wireframe = true
+                e.material.wireframe = new THREE.Color(0xffffff)
+              }
+            })
+
+            mesh.rotateY(Math.PI * opts.rotate_y_multi)
+            mesh.rotateX(Math.PI * opts.rotate_x_multi)
+            mesh.rotateZ(Math.PI * opts.rotate_z_multi)
+
+            mesh.scale.set(opts.scale, opts.scale, opts.scale);
+
+            scene.add(mesh)
+
+          }
+
+        })
+
+      }
 
 
-      // object.position.setY(0)
-      object.rotateY(Math.PI * 1.1)
-      // object.rotateX(Math.PI * -0.33)
-
-      object.scale.set(scale, scale, scale);
-      scene.add(object);
 
     }, onProgress, onError);
 
@@ -99,8 +128,8 @@ function render(opts) {
 
       if (window.innerWidth < 500) {
         // mobile
-        event.clientX = event.changedTouches[0].clientX *= 3.0
-        event.clientY = event.changedTouches[0].clientY *= 3.0
+        event.clientX = event.changedTouches[0].clientX *= 2.0
+        event.clientY = event.changedTouches[0].clientY *= 2.0
       }
 
     }
@@ -121,8 +150,8 @@ function render(opts) {
 
   function render() {
 
-    camera.position.x += (mouseX - camera.position.x - 100) * .05;
-    camera.position.y += (mouseY - camera.position.y - 250) * .05;
+    camera.position.x += (mouseX - camera.position.x + opts.camera_offset_x) * opts.camera_x_multi;
+    camera.position.y += (mouseY - camera.position.y + opts.camera_offset_y) * opts.camera_y_multi;
 
     camera.lookAt(scene.position);
 
