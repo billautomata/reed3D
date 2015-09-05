@@ -15,7 +15,6 @@ function render(opts) {
   init();
   animate();
 
-
   function init() {
 
     container = document.createElement('div');
@@ -25,7 +24,6 @@ function render(opts) {
     camera.position.z = opts.camera_z;
 
     // scene
-
     scene = new THREE.Scene();
 
     var ambient = new THREE.AmbientLight(0xffffff);
@@ -64,6 +62,7 @@ function render(opts) {
       window.model_object.rotateX(Math.PI * opts.rotate_x_multi)
       window.model_object.rotateZ(Math.PI * opts.rotate_z_multi)
       window.model_object.scale.set(opts.scale, opts.scale, opts.scale);
+
       scene.add(window.model_object);
 
       if (opts.wireframe_mode) {
@@ -81,6 +80,8 @@ function render(opts) {
 
     document.addEventListener('mousemove', onDocumentMouseMove, false);
     document.addEventListener('touchmove', onDocumentMouseMove, false);
+    document.addEventListener('dblclick', function(){ console.log('dbl')}, false)
+    document.addEventListener('click', function(){ console.log('sngl')}, false)    
 
     window.addEventListener('resize', onWindowResize, false);
 
@@ -104,11 +105,6 @@ function render(opts) {
       }
     })
   }
-
-  function add_model() {
-  }
-
-  window.add_model = add_model
 
   function onWindowResize() {
 
