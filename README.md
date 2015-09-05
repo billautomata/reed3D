@@ -1,6 +1,6 @@
-* [ ] index JSON array of model names
-* [ ] each element in the index array is a model with its own JSON
-  * [ ] {
+* [x] index JSON array of model names
+* [x] each element in the index array is a model with its own JSON
+  * [x] {
           "name": "day13",
           "obj": "day13.obj",
           "mtl": "day13.mtl",
@@ -22,6 +22,6 @@
 * settings
   * [ ] lights toggle
   * [x] wireframe mode (one way, easter egg)
-  * [ ] list models
+  * [ ] list models if no hash passed
   * [x] load the model from the path
   * [ ] realistic mode (only ambient light)

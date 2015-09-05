@@ -3,29 +3,30 @@
   fetch('list.json').then(function(response){
     return response.json()
   }).then(function(json){
-    console.log(json)
 
-    var list_array = json
+    if(window.location.hash.length === 0){
+      // no hash passed, render the index
+      render_index(json)
 
-    list_array.forEach(function(element, element_idx){
-
-      if(window.location.hash.length !== 0){
-        // picked hash
-        var k = window.location.hash.split('#')[1]
-        console.log(k)
-
-        if(element === k){
-          fetch('models/' + element + '/index.json').then(function(r){
-            return r.json()
-          }).then(function(json){
-            console.log(json)
-            render(json)
-          })
+    } else {
+      // hash passed, render the correct one
+      json.forEach(function(element, element_idx){
+        if(window.location.hash.length !== 0){
+          var k = window.location.hash.split('#')[1]
+          if(element === k){
+            fetch('models/' + element + '/index.json').then(function(r){
+              return r.json()
+            }).then(function(json){
+              console.log(json)
+              render(json)
+            })
+          }
         }
+      })
+    }
 
-      }
 
-    })
+
 
   })
 
