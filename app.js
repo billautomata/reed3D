@@ -9,17 +9,21 @@
 
     list_array.forEach(function(element, element_idx){
 
-      fetch('models/' + element + '/index.json').then(function(r){
-        return r.json()
-      }).then(function(json){
+      if(window.location.hash.length !== 0){
+        // picked hash
+        var k = window.location.hash.split('#')[1]
+        console.log(k)
 
-        console.log(json)
-
-        if(element_idx === 0){
-          render(json)
+        if(element === k){
+          fetch('models/' + element + '/index.json').then(function(r){
+            return r.json()
+          }).then(function(json){
+            console.log(json)
+            render(json)
+          })
         }
 
-      })
+      }
 
     })
 

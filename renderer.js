@@ -1,17 +1,20 @@
 function render(opts) {
 
+  var raw_object;
+  var model_object;
   var container, stats;
 
   var camera, scene, renderer;
 
-  var mouseX = 0,
-    mouseY = 0;
+  var mouseX = 0
+  var mouseY = 0
 
   var windowHalfX = window.innerWidth / 2;
   var windowHalfY = window.innerHeight / 2;
 
   init();
   animate();
+
 
   function init() {
 
@@ -28,10 +31,13 @@ function render(opts) {
     var ambient = new THREE.AmbientLight(0xffffff);
     scene.add(ambient);
 
+    if (opts.use_directional === true) {
 
-    var directionalLight = new THREE.DirectionalLight(parseInt(opts.directional_light_color));
-    directionalLight.position.set(0, 0, 1).normalize();
-    scene.add(directionalLight);
+      var directionalLight = new THREE.DirectionalLight(parseInt(opts.directional_light_color));
+      directionalLight.position.set(0, 0, 1).normalize();
+      scene.add(directionalLight);
+
+    }
 
     // model
 
@@ -44,50 +50,25 @@ function render(opts) {
 
     var onError = function (xhr) {};
 
-
     THREE.Loader.Handlers.add(/\.dds$/i, new THREE.DDSLoader());
 
     var loader = new THREE.OBJMTLLoader();
     loader.load('models/' + opts.name + '/' + opts.obj, 'models/' + opts.name + '/' + opts.mtl, function (object) {
 
+      window.scene = scene
+      window.raw_object = object
+      window.model_object = model_object
 
-      if (!opts.wireframe_mode) {
-        object.rotateY(Math.PI * opts.rotate_y_multi)
-        object.rotateX(Math.PI * opts.rotate_x_multi)
-        object.rotateZ(Math.PI * opts.rotate_z_multi)
-        object.scale.set(opts.scale, opts.scale, opts.scale);
-        scene.add(object);
-      } else {
-        // wireframe mode
-        object.traverse(function (element) {
+      window.model_object = window.raw_object.clone()
+      window.model_object.rotateY(Math.PI * opts.rotate_y_multi)
+      window.model_object.rotateX(Math.PI * opts.rotate_x_multi)
+      window.model_object.rotateZ(Math.PI * opts.rotate_z_multi)
+      window.model_object.scale.set(opts.scale, opts.scale, opts.scale);
+      scene.add(window.model_object);
 
-          if (element instanceof THREE.Mesh) {
-            var geo = element.geometry
-            var mat = element.material
-            var mesh = new THREE.Mesh(geo, mat)
-
-            mesh.traverse(function (e) {
-              if (e instanceof THREE.Mesh) {
-                e.material.wireframe = true
-                e.material.wireframe = new THREE.Color(0xffffff)
-              }
-            })
-
-            mesh.rotateY(Math.PI * opts.rotate_y_multi)
-            mesh.rotateX(Math.PI * opts.rotate_x_multi)
-            mesh.rotateZ(Math.PI * opts.rotate_z_multi)
-
-            mesh.scale.set(opts.scale, opts.scale, opts.scale);
-
-            scene.add(mesh)
-
-          }
-
-        })
-
+      if (opts.wireframe_mode) {
+        set_wireframe(window.model_object)
       }
-
-
 
     }, onProgress, onError);
 
@@ -104,6 +85,30 @@ function render(opts) {
     window.addEventListener('resize', onWindowResize, false);
 
   }
+
+  function set_wireframe(o) {
+    o.traverse(function (element) {
+
+      if (element instanceof THREE.Mesh) {
+        var geo = element.geometry
+        var mat = element.material
+        var mesh = new THREE.Mesh(geo, mat)
+
+        mesh.traverse(function (e) {
+          if (e instanceof THREE.Mesh) {
+            e.material.wireframe = true
+            e.material.wireframe = new THREE.Color(0xffffff)
+          }
+        })
+
+      }
+    })
+  }
+
+  function add_model() {
+  }
+
+  window.add_model = add_model
 
   function onWindowResize() {
 

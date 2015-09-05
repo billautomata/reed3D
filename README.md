@@ -13,11 +13,15 @@
           "camera_offset_x": 100,
           "camera_offset_y": -150,
           "camera_x_multi": 0.05,
-          "camera_y_multi": 0.05
+          "camera_y_multi": 0.05,
+          "wireframe_mode": true,
+          "use_directional": false,
+          "directional_light_color": "0xffffff"          
         }
 
 * settings
-  * [ ] add lights
-  * [ ] wireframe mode
-  * [ ] pick the model
+  * [ ] lights toggle
+  * [x] wireframe mode (one way, easter egg)
+  * [ ] list models
+  * [x] load the model from the path
   * [ ] realistic mode (only ambient light)
