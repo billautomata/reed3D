@@ -15,6 +15,9 @@ function render(opts) {
   init();
   animate();
 
+
+
+
   function init() {
 
     container = document.createElement('div');
@@ -69,6 +72,14 @@ function render(opts) {
         set_wireframe(window.model_object)
       }
 
+      var k = d3.select('body').append('div')
+        .attr('class','back_button').html('back')
+
+      k.on('click', function(){
+        window.location.hash = ''
+        window.location.reload(true)
+      })
+
     }, onProgress, onError);
 
     //
@@ -81,9 +92,10 @@ function render(opts) {
     document.addEventListener('mousemove', onDocumentMouseMove, false);
     document.addEventListener('touchmove', onDocumentMouseMove, false);
     document.addEventListener('dblclick', function(){ console.log('dbl')}, false)
-    document.addEventListener('click', function(){ console.log('sngl')}, false)    
+    document.addEventListener('click', function(){ console.log('sngl')}, false)
 
     window.addEventListener('resize', onWindowResize, false);
+
 
   }
 

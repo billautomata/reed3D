@@ -21,7 +21,9 @@
 
 * settings
   * [ ] lights toggle
-  * [x] wireframe mode (one way, easter egg)
-  * [ ] list models if no hash passed
-  * [x] load the model from the path
   * [ ] realistic mode (only ambient light)
+  * [ ] back button
+  * [x] wireframe mode (one way, easter egg)
+  * [x] list models if no hash passed
+  * [x] load the model from the path
+  

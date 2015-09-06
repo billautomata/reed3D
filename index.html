@@ -7,8 +7,8 @@
 		<style>
 			body {
 				font-family: Monospace;
-				background-color: #000;
-				color: #fff;
+				background-color: #fff;
+				color: #000;
 				margin: 0px;
 				overflow: hidden;
 			}
@@ -25,11 +25,33 @@
 
 			.box {
 				width: 22%;
-				outline: 1px solid white;
+				outline: 1px solid rgb(244,244,244);
 				text-align: center;
 				font-size: 22px;
+				font-family: Helvetica, sans-serif;
 				float: left;
 				padding: 20px;
+				z-index: 2;
+			}
+
+			.back_button {
+				position: fixed;
+				bottom: 4px;
+				left: 2px;
+				background-color: rgba(255,255,255,0.5);
+				width: 100px;
+				height: 30px;
+				outline: 1px solid rgb(244,244,244);
+				text-align: center;
+				font-size: 22px;
+				line-height: 1.4;
+				font-family: Helvetica, sans-serif;
+				color: white;
+				z-index: 2;
+			}
+			.box:hover,.back_button:hover {
+				background-color: rgb(224,224,224);
+				cursor: pointer;
 			}
 
 			.container {
@@ -49,6 +71,7 @@
 		<script src="vendor_js/OBJMTLLoader.js"></script>
 		<script src="vendor_js/Detector.js"></script>
 		<script src="vendor_js/stats.min.js"></script>
+		<script src="vendor_js/dat.gui.min.js"></script>
 
 		<script src="renderer.js"></script>
 		<script src="render_index.js"></script>
