@@ -20,10 +20,9 @@
         }
 
 * settings
+  * [ ] loading screen
   * [ ] lights toggle
-  * [ ] realistic mode (only ambient light)
-  * [ ] back button
+  * [x] back button
   * [x] wireframe mode (one way, easter egg)
   * [x] list models if no hash passed
   * [x] load the model from the path
-  
