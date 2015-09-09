@@ -12,7 +12,7 @@
   "camera_offset_y": -150,
   "camera_x_multi": 0.05,
   "camera_y_multi": 0.05,
-  "wireframe_mode": true,
+  "wireframe_mode": false,
   "use_directional": false,
   "directional_light_color": "0xffffff"
 }
